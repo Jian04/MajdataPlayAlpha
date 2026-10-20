@@ -1,0 +1,185 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1813768915693868722
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7621824236295853802}
+  - component: {fileID: 7757670946310935750}
+  m_Layer: 0
+  m_Name: SkinManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7621824236295853802
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1813768915693868722}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7757670946310935750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1813768915693868722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7648b719b48b415478537ded27e8829e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SubDisplay: {fileID: 0}
+  Tap: {fileID: 0}
+  Tap_Each: {fileID: 0}
+  Tap_Break: {fileID: 0}
+  Tap_Ex: {fileID: 0}
+  Slide: {fileID: 0}
+  Slide_Each: {fileID: 0}
+  Slide_Break: {fileID: 0}
+  Wifi:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  Wifi_Each:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  Wifi_Break:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  Star: {fileID: 0}
+  Star_Double: {fileID: 0}
+  Star_Each: {fileID: 0}
+  Star_Each_Double: {fileID: 0}
+  Star_Break: {fileID: 0}
+  Star_Break_Double: {fileID: 0}
+  Star_Ex: {fileID: 0}
+  Star_Ex_Double: {fileID: 0}
+  Hold: {fileID: 0}
+  Hold_On: {fileID: 0}
+  Hold_Off: {fileID: 0}
+  Hold_Each: {fileID: 0}
+  Hold_Each_On: {fileID: 0}
+  Hold_Ex: {fileID: 0}
+  Hold_Break: {fileID: 0}
+  Hold_Break_On: {fileID: 0}
+  HoldEnd: {fileID: 0}
+  HoldEachEnd: {fileID: 0}
+  HoldBreakEnd: {fileID: 0}
+  Just:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  JudgeText:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  JudgeText_Break: {fileID: 0}
+  FastText: {fileID: 0}
+  LateText: {fileID: 0}
+  Touch: {fileID: 0}
+  Touch_Each: {fileID: 0}
+  TouchPoint: {fileID: 0}
+  TouchPoint_Each: {fileID: 0}
+  TouchJust: {fileID: 0}
+  TouchBorder:
+  - {fileID: 0}
+  - {fileID: 0}
+  TouchBorder_Each:
+  - {fileID: 0}
+  - {fileID: 0}
+  TouchHold:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  TouchHold_Off: {fileID: 0}
+  Outline: {fileID: 0}
+  test: {fileID: 0}
+  TapLines:
+  - {fileID: 21300000, guid: 3003041b178b9f246b4b465afb8079d3, type: 3}
+  - {fileID: 21300000, guid: 1a40750ad0e4fb747aeeb83536f52d09, type: 3}
+  - {fileID: 21300000, guid: c190fb744a4bc94429a7cbce66f9fa9b, type: 3}
+  StarLines:
+  - {fileID: 21300000, guid: 8576ec838da5f784e866901901ed374f, type: 3}
+  - {fileID: 21300000, guid: 1a40750ad0e4fb747aeeb83536f52d09, type: 3}
+  - {fileID: 21300000, guid: c190fb744a4bc94429a7cbce66f9fa9b, type: 3}
+  BreakMaterial: {fileID: 2100000, guid: 6cea13e5ba8275446be27a38daed20c7, type: 2}
+  JustBreak: {fileID: 9100000, guid: d9d72951bd126f747bb82ab814428546, type: 2}

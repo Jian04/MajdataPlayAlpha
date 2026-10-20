@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework><OutputType>Exe</OutputType>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems><AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Nullable>enable</Nullable><NoWarn>CS8600;CS8602;CS8603;CS8604;CS8618;CS8625</NoWarn><EnableNETAnalyzers>false</EnableNETAnalyzers>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../Assets/Plugins/MajSimai/Runtime/**/*.cs" />
+    <Compile Include="../../Assets/Scripts/Alpha/AlphaSimaiParser.cs" />
+    <Compile Include="../../Assets/Scripts/Alpha/AlphaVisualTimeline.cs" />
+    <Compile Include="../../Assets/Scripts/Alpha/AlphaVisualTimeline.NoteTransitions.cs" />
+    <Compile Include="../../Assets/Scripts/Alpha/AlphaVisualTiming.cs" />
+    <Compile Include="../../Assets/Scripts/Alpha/AlphaCommandGrammar.cs" />
+    <Compile Include="../../Assets/Scripts/Alpha/AlphaExtraFilters.cs" />
+    <Compile Include="../../Assets/Scripts/Alpha/NoiseZoneTimeline.cs" />
+    <Compile Include="../../Assets/Scripts/Alpha/NoiseZoneGeometry.cs" />
+    <Compile Include="../../Assets/Scripts/Alpha/AlphaNoiseParser.cs" />
+    <Compile Include="../../Assets/Scripts/Alpha/JudgeLineStyles.cs" />
+    <Compile Include="../../Assets/Scripts/Alpha/ParserMessageLocale.cs" />
+    <Compile Include="../../Assets/Scripts/Alpha/EffectEnvelope.cs" />
+    <Compile Include="../../Assets/Scripts/Alpha/ScreenEffectEvent.cs" />
+    <Compile Include="../../Assets/Scripts/Alpha/AlphaScreenEffectParser.cs" />
+    <Compile Include="../../Assets/Scripts/Alpha/AlphaEffectTrack.cs" />
+    <Compile Include="../../Assets/Scripts/Alpha/AlphaRingGeometry.cs" />
+    <Compile Include="../../Assets/Scripts/Alpha/AlphaFakeNotes.cs" />
+    <Compile Include="../../Assets/Scripts/Alpha/AlphaChartCompatibility.cs" />
+    <Compile Include="../../Assets/Scripts/Alpha/Core/*.cs" />
+    <Compile Include="../../Assets/Scripts/Alpha/AlphaPathParser.cs" />
+    <Compile Include="../../Assets/Scripts/Alpha/AlphaNoteDecoration.cs" />
+    <Compile Include="../../Assets/Scripts/Alpha/AlphaDisplayParser.cs" />
+    <Compile Include="../../Assets/Scripts/Alpha/AlphaStreamSyntax.cs" />
+    <Compile Include="../../Assets/Scripts/Alpha/NoteValueTransition.cs" />
+    <Compile Include="../../Assets/Scripts/Alpha/FontFiles.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="NewSyntaxRegression.cs" />
+    <Compile Include="../../../alpha/Assets/Scripts/SvController.cs" Link="ViewSvController.cs" />
+    <Compile Include="../../../alpha/Assets/MajdataCore/AlphaCommandExamples.cs" Link="ViewAlphaCommandExamples.cs" />
+  </ItemGroup>
+</Project>

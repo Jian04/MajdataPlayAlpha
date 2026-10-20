@@ -1,0 +1,54 @@
+name: Build unsigned iOS IPA
+on:
+  workflow_dispatch:
+    inputs:
+      xcode_zip_url:
+        description: "Xcode ZIP 的 HTTPS 下载直链"
+        required: true
+        type: string
+      xcode_zip_sha256:
+        description: "Xcode ZIP 的 SHA256"
+        required: true
+        type: string
+permissions:
+  contents: read
+jobs:
+  ios:
+    runs-on: macos-15-intel
+    timeout-minutes: 120
+    steps:
+      - name: Download and verify Xcode export
+        env:
+          XCODE_ZIP_URL: ${{ inputs.xcode_zip_url }}
+          XCODE_ZIP_SHA256: ${{ inputs.xcode_zip_sha256 }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          [[ "$XCODE_ZIP_URL" == https://* ]]
+          [[ "$XCODE_ZIP_SHA256" =~ ^[a-fA-F0-9]{64}$ ]]
+          curl --fail --location --retry 3 --proto '=https' --proto-redir '=https' \
+            "$XCODE_ZIP_URL" -o "$RUNNER_TEMP/xcode.zip"
+          printf '%s  %s\n' "$XCODE_ZIP_SHA256" "$RUNNER_TEMP/xcode.zip" | shasum -a 256 -c -
+          ditto -x -k "$RUNNER_TEMP/xcode.zip" "$RUNNER_TEMP/xcode"
+      - name: Build unsigned IPA
+        shell: bash
+        run: |
+          set -euo pipefail
+          xcodebuild -version
+          bash "$RUNNER_TEMP/xcode/MajdataPlayAlpha-iOS/build_ios_ipa.sh" \
+            "$RUNNER_TEMP/xcode/MajdataPlayAlpha-iOS" "$RUNNER_TEMP/ios-output"
+      - name: Downloadable IPA
+        uses: actions/upload-artifact@v7
+        with:
+          name: MajdataPlayAlpha-alpha.0.6.1-unsigned-IPA
+          path: ${{ runner.temp }}/ios-output/*-unsigned.ipa
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 7
+      - name: Xcode build log
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: iOS-build-log
+          path: ${{ runner.temp }}/ios-output/xcodebuild.log
+          retention-days: 7
