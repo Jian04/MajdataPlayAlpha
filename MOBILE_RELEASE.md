@@ -40,7 +40,7 @@ Android 沿用原仓库 .github/workflows/main.yml 的独立 APK 分支：Unity 
 
 ## 在线生成 IPA：GitHub Actions
 
-网址：[GitHub Actions](https://github.com/features/actions)。标准 macOS 云机在公开仓库中免费；私有仓库使用账号额度，超出可能收费。本配置只手动运行，不自动发布，不需要 Apple 密码、证书或 Unity 激活密钥。[费用和机型说明](https://docs.github.com/en/actions/how-tos/write-workflows/choose-where-workflows-run/choose-the-runner-for-a-job)
+工作流：[Build unsigned iOS IPA](https://github.com/Jian04/MajdataPlayAlpha/actions/workflows/ios-cloud.yml)。标准 macOS 云机在公开仓库中免费；私有仓库使用账号额度，超出可能收费。本配置只手动运行，不自动发布，不需要 Apple 密码、证书或 Unity 激活密钥。[费用和机型说明](https://docs.github.com/en/actions/how-tos/write-workflows/choose-where-workflows-run/choose-the-runner-for-a-job)
 
 1. 下载本次的 MajdataPlayAlpha-alpha.0.6.1-Xcode.zip，保持原 ZIP 不修改。它包含完整 Xcode 工程和 build_ios_ipa.sh。
 2. 在自己的公开 GitHub 仓库创建一个 Release，上传该 ZIP 作为附件。复制附件的 HTTPS 下载直链。不要把解压后的 Data、Libraries 和 IL2CPP 大文件提交进 Git。
@@ -53,7 +53,7 @@ Get-FileHash -Algorithm SHA256 -LiteralPath 'D:\Maimai\release\MajdataPlayAlpha-
 
 5. 打开仓库 Actions → **Build unsigned iOS IPA** → **Run workflow**，填写下载直链和 SHA256，然后运行。使用标准 macos-15-intel，最长 120 分钟；不选择付费 Larger runner。
 6. 成功后，打开这次运行的 Artifacts，下载 MajdataPlayAlpha-alpha.0.6.1-unsigned-IPA。解压得到未签名 IPA，发给用户按下文自签即可。Artifacts 本配置保留 7 天，正式发布前将 IPA 另存到本机或自己的 Release。
-7. 失败时下载 iOS-build-log 查看 Xcode 的原始错误。Windows 已验证 Xcode 工程导出，但该工作流尚未在远端运行；首次原生编译可能还需要根据实际 Xcode 日志修正。
+7. 失败时下载 iOS-build-log 查看 Xcode 的原始错误。工作流运行结果、IPA 归档成功与 iPhone 实机测试分别确认。
 
 [手动运行工作流](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/manually-run-a-workflow) · [下载构建产物](https://docs.github.com/en/actions/tutorials/store-and-share-data)
 

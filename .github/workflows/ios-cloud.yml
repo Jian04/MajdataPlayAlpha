@@ -30,6 +30,8 @@ jobs:
             "$XCODE_ZIP_URL" -o "$RUNNER_TEMP/xcode.zip"
           printf '%s  %s\n' "$XCODE_ZIP_SHA256" "$RUNNER_TEMP/xcode.zip" | shasum -a 256 -c -
           ditto -x -k "$RUNNER_TEMP/xcode.zip" "$RUNNER_TEMP/xcode"
+          # ZIP timestamps use the exporter timezone; Bee rejects future inputs.
+          find "$RUNNER_TEMP/xcode" -type f -exec touch {} +
       - name: Build unsigned IPA
         shell: bash
         run: |
