@@ -10,6 +10,24 @@ static class Program
     static void Assert(bool ok, string name) { if (!ok) throw new Exception(name); checks++; }
     static void Near(double a, double b, string name) => Assert(Math.Abs(a-b) < 1e-5, $"{name}: {a} != {b}");
     static AlphaVisualTimeline Timeline(string text) => AlphaSimaiParser.GetTimeline(AlphaSimaiParser.ParseChart("14+", "tester", text));
+    static void CheckConcurrentStates()
+    {
+        var timeline = Timeline("(120){4}<COLOR*FF0000><FAKE*True>1,<COLOR*0000FF><FAKE*False>2,<COLOR*00FF00><FAKE*True>3,");
+        var expected = new uint[] { 0xFF0000, 0x0000FF, 0x00FF00 };
+        var errors = 0;
+        System.Threading.Tasks.Parallel.For(0, 4, worker =>
+        {
+            for (var i = 0; i < 100000; i++)
+            {
+                var slot = (i + worker) % 3;
+                var time = slot * .5 + .1;
+                if (timeline.Color("tap", time, time, false, false, false) != expected[slot] ||
+                    timeline.IsFake("tap", time, false, false) != (slot != 1))
+                    System.Threading.Interlocked.Increment(ref errors);
+            }
+        });
+        Assert(errors == 0, "Concurrent graph/audio/note state queries returned inconsistent values: " + errors);
+    }
     static void CheckDisplayPerformance(string path)
     {
         using var input = System.IO.File.OpenRead(path);
@@ -393,6 +411,7 @@ static class Program
     }
     static void Run()
     {
+        CheckConcurrentStates();
         NewSyntaxRegression.Run();
         CheckAlpha6();
         var noiseChart=AlphaSimaiParser.ParseChart("","","(120){4}1/XD1[8:1],2/XC[#0.12],XE1/3,E");

@@ -300,16 +300,19 @@ namespace MajdataPlay.Alpha
         sealed class StateTrack
         {
             readonly Change[] values;
-            float sampledTime = float.NaN;
-            Change sampled;
+            int sampledIndex = -1;
             internal StateTrack(Change[] values) { this.values = values; }
             internal Change At(float time)
             {
-                if (sampledTime == time) return sampled;
-                sampledTime = time;
+                // Graph/audio preparation can query on other threads. The index
+                // is only a hint; validate its immutable interval before using it.
+                var found = sampledIndex;
+                if (found >= 0 && (float)values[found].Time <= time &&
+                    (found + 1 == values.Length || (float)values[found + 1].Time > time))
+                    return values[found].Reset ? null : values[found];
                 var lo = 0;
                 var hi = values.Length - 1;
-                var found = -1;
+                found = -1;
                 while (lo <= hi)
                 {
                     var mid = (lo + hi) / 2;
@@ -317,8 +320,8 @@ namespace MajdataPlay.Alpha
                     if ((float)values[mid].Time <= time) { found = mid; lo = mid + 1; }
                     else hi = mid - 1;
                 }
-                sampled = found < 0 || values[found].Reset ? null : values[found];
-                return sampled;
+                sampledIndex = found;
+                return found < 0 || values[found].Reset ? null : values[found];
             }
         }
         Change Resolve(Kind kind, string type, bool live, double time, bool each, bool brk, bool mine)
