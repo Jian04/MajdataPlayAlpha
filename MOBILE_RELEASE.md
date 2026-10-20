@@ -51,7 +51,7 @@ Android 沿用原仓库 .github/workflows/main.yml 的独立 APK 分支：Unity 
 Get-FileHash -Algorithm SHA256 -LiteralPath 'D:\Maimai\release\MajdataPlayAlpha-alpha.0.6.1-Xcode.zip'
 ~~~
 
-5. 打开仓库 Actions → **Build unsigned iOS IPA** → **Run workflow**，填写下载直链和 SHA256，然后运行。使用标准 macos-15-intel，最长 120 分钟；不选择付费 Larger runner。
+5. 打开仓库 Actions → **Build unsigned iOS IPA** → **Run workflow**，填写下载直链和 SHA256，然后运行。使用标准 macos-26 和 Xcode 26.6，最长 120 分钟；不选择付费 Larger runner。上游 iOS 网络库包含 Apple LLVM 21 位码，Xcode 16.4 无法链接。
 6. 成功后，打开这次运行的 Artifacts，下载 MajdataPlayAlpha-alpha.0.6.1-unsigned-IPA。解压得到未签名 IPA，发给用户按下文自签即可。Artifacts 本配置保留 7 天，正式发布前将 IPA 另存到本机或自己的 Release。
 7. 失败时下载 iOS-build-log 查看 Xcode 的原始错误。工作流运行结果、IPA 归档成功与 iPhone 实机测试分别确认。
 
@@ -61,7 +61,7 @@ Get-FileHash -Algorithm SHA256 -LiteralPath 'D:\Maimai\release\MajdataPlayAlpha-
 
 ## 在工作 Mac 上生成 IPA
 
-1. 安装与 Mac 系统兼容的 Xcode，打开一次完成组件安装。整个流程不需要付费开发者会员；如果工作电脑限制安装软件，使用已有 Xcode 或联系电脑管理员。
+1. 安装 Xcode 26.6 或更新的兼容版本，打开一次完成组件安装。上游 iOS 网络库需要 Apple LLVM 21 工具链。整个流程不需要付费开发者会员；如果工作电脑限制安装软件，可使用上面的 GitHub Actions。
 2. 打开 `Unity-iPhone.xcodeproj` 确认工程能载入。在终端执行 `xcodebuild -version`，确认使用的是完整 Xcode。
 3. 将 `build_ios_ipa.sh` 放在工程旁边，运行：
 

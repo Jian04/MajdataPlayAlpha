@@ -14,8 +14,11 @@ permissions:
   contents: read
 jobs:
   ios:
-    runs-on: macos-15-intel
+    runs-on: macos-26
     timeout-minutes: 120
+    env:
+      # The bundled iOS libcurl contains Apple LLVM 21 bitcode.
+      DEVELOPER_DIR: /Applications/Xcode_26.6.app/Contents/Developer
     steps:
       - name: Download and verify Xcode export
         env:
@@ -37,6 +40,7 @@ jobs:
         run: |
           set -euo pipefail
           xcodebuild -version
+          xcrun clang --version
           bash "$RUNNER_TEMP/xcode/MajdataPlayAlpha-iOS/build_ios_ipa.sh" \
             "$RUNNER_TEMP/xcode/MajdataPlayAlpha-iOS" "$RUNNER_TEMP/ios-output"
       - name: Downloadable IPA
