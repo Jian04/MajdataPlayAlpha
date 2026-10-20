@@ -1,0 +1,49 @@
+name: Publish built iOS IPA
+on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: "已成功生成 IPA 的 Actions 运行编号"
+        required: true
+        type: string
+permissions:
+  actions: read
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Download and check the completed build
+        env:
+          GH_TOKEN: ${{ github.token }}
+          IOS_RUN_ID: ${{ inputs.run_id }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          [[ "$IOS_RUN_ID" =~ ^[0-9]+$ ]]
+          conclusion="$(gh run view "$IOS_RUN_ID" --repo "$GITHUB_REPOSITORY" --json conclusion --jq .conclusion)"
+          [[ "$conclusion" == success ]]
+          gh run download "$IOS_RUN_ID" --repo "$GITHUB_REPOSITORY" \
+            --name MajdataPlayAlpha-alpha.0.6.1-unsigned-IPA --dir "$RUNNER_TEMP/ios"
+          python3 - <<'PY'
+          import os, pathlib, plistlib, zipfile
+          root = pathlib.Path(os.environ["RUNNER_TEMP"]) / "ios"
+          packages = list(root.glob("*.ipa"))
+          assert len(packages) == 1, "Expected one IPA"
+          with zipfile.ZipFile(packages[0]) as archive:
+              infos = [name for name in archive.namelist() if name.startswith("Payload/") and name.count("/") == 2 and name.endswith(".app/Info.plist")]
+              assert len(infos) == 1, "Expected one main application"
+              info = plistlib.loads(archive.read(infos[0]))
+              assert info["CFBundleIdentifier"] == "net.majdata.majdataplayalpha"
+              assert info["CFBundleShortVersionString"] == "0.6.1" and info["CFBundleVersion"] == "61"
+          print("IPA version and application identifier verified")
+          PY
+      - name: Attach IPA to the existing release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          sha256sum "$RUNNER_TEMP/ios/"*.ipa
+          gh release upload v0.6.1-ios "$RUNNER_TEMP/ios/"*.ipa --repo "$GITHUB_REPOSITORY"
